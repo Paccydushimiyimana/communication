@@ -1,0 +1,9 @@
+      <div >
+        <label for="id_acad_council_cat">Academic council category:</label>
+        <select style="height:22px;margin-left:20px" id="id_acad_council_cat" name="Acad_council_cat">
+           <option value="">-------------------------</option>  
+          {% for acad_council_cat in acad_council_cats %}   
+           <option value="{{acad_council_cat.name}}">{{acad_council_cat.name}}</option>  
+          {% endfor %} 
+        </select>
+      </div>

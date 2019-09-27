@@ -1,0 +1,51 @@
+
+{% if cat == 'Student' %}
+  {% include 'includes/student_fields.html' %}
+{% endif %}
+{% if cat == 'Lecturer' %}
+  {% include 'includes/lecturer_fields.html' %}
+{% endif %}
+{% if cat == 'College council' %}
+  {% include 'includes/col_council_fields.html' %}
+{% endif %}
+{% if cat == 'Academic council' %}
+  {% include 'includes/acad_council_fields.html' %}
+{% endif %}
+{% if cat == 'School council' %}
+  {% include 'includes/skl_council_fields.html' %}
+{% endif %}
+{% if cat == 'Department council' %}
+  {% include 'includes/dep_council_fields.html' %}
+{% endif %}
+
+  <script>
+    $('#id_school').change(function() {
+        let depart_url = $('#user').data('urldepartments');
+        let skl_select = $(this).val();
+        console.log(skl_select);
+        $.ajax({
+        url: depart_url,
+        data: {
+            school: skl_select
+        },
+        success: function(response) {
+            $('#id_department').html(response)
+        }
+        })
+    });
+    $('#id_department').change(function() {
+        let level_url = $('#user').data('urllevels');
+        let depart_select = $(this).val();
+        console.log(depart_select);
+        $.ajax({
+        url: level_url,
+        data: {
+            department: depart_select
+        },
+        success: function(response) {
+            $('#id_level').html(response)
+        }
+        })
+    });
+  </script>
+

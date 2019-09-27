@@ -1,0 +1,26 @@
+   <div >
+      <label for="">Reg number:</label>
+        <input style="height:22px;margin-left:20px;width: 150px" type="number" name="Reg" ><br>
+      <label for="id_student_cat">Student_category:</label>
+        <select style="height:22px;margin-left:20px" id="id_student_cat" name="Std_cat">
+           <option value="">-----------------</option>  
+          {% for student_cat in student_cats %}   
+           <option value="{{student_cat.name}}">{{student_cat.name}}</option>  
+          {% endfor %} 
+        </select><br>
+      <label for="id_school">School:</label>
+        <select style="height:22px;margin-left:20px" id="id_school" name="Skl">
+           <option value="">-----------------</option>  
+          {% for school in schools%}   
+           <option value="{{school.name}}">{{school.name}}</option>  
+          {% endfor %}       
+        </select><br>
+      <label for="id_department">Department:</label>
+        <select style="height:22px;margin-left:20px" id="id_department" name="Depart">
+           <option value="">-----------------</option>      
+        </select><br>
+      <label for="id_level">Level:</label>
+        <select style="height:22px;margin-left:20px" id="id_level" name="Lv">
+           <option value="">-----------------</option>      
+        </select>
+   </div>

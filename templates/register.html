@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+{% block body %}
+  <div class="container " >
+   <div class="row justify-content-center">
+     <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card">
+       <div class="card-body">
+        <h3 class="card-title">Sign up</h3> 
+          <form id="user" method="POST" novalidate
+           data-urlcategory="{% url 'load_category' %}"
+          data-urldepartments="{% url 'load_departments' %}"
+          data-urllevels="{% url 'load_levels' %}" >
+          {% csrf_token %}
+            <label for="">Firstname:</label>  
+              <input style="height:22px;margin-left:20px" type="text" name="Fname" ><br>
+            <label for="">Lastname:</label>   
+              <input style="height:22px;margin-left:20px" type="text" name="Lname" ><br>
+            <label for="">Email:</label>
+              <input style="height:22px;margin-left:20px" type="email" name="Email" ><br>
+            <label for="">Phone:</label>
+              <input style="height:22px;margin-left:20px;width: 150px" type="text" name="Phone" ><br> 
+            <label for="">password:</label>         
+              <input style="height:22px;margin-left:20px;width: 120px" type="password" name="Pwd1" ><br>
+            <label for="">Confirm Password:</label>
+              <input style="height:22px;margin-left:20px;width: 120px" type="password" name="Pwd2" ><br>
+            <label for="id_category">Category:</label>
+              <select style="height:22px;margin-left:20px" id="id_category" name="Catgy">
+                <option value="">----------</option>
+              {% for category in categories %} 
+                <option  value="{{category.name}}">{{category.name}}</option>
+              {% endfor %}
+              </select>
+            <div id="id_cat" class="form-group"></div>
+           <button class="btn btn-primary btn-center" type="submit">Sign Up</button>
+              
+          </form>
+          {{user.first_name}}
+          {{user.lasst_name}}
+          {{user.email}}
+          {{user.phone}}
+          {{user.category}}
+          {{user.student}}
+          {{user.regNo}}
+          {{user.lecturer}}
+          {{user.staffId}}
+          {{user.college_council}}
+          {{user.academic_council}}
+          {{user.school_council}}
+          {{user.department_council}}
+          {{user.school}}
+          {{user.department}}
+          {{user.level}}
+         </div>
+         <div class="card-footer text-muted text-center">
+           Already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+{% block script %}
+<script>
+  $('#id_category').change(function() {
+      let cat_url = $('#user').data('urlcategory');
+      let cat_select = $(this).val();
+      console.log(cat_select);
+      $.ajax({
+        url: cat_url,
+        data: {
+          category: cat_select
+        },
+        success: function(response) {
+          $('#id_cat').html(response)
+        }
+      })
+    });
+  </script>
+{% endblock %}
