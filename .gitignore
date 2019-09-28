@@ -129,7 +129,7 @@ venv.bak/
 /site
 
 # mypy
-.mypy_cache/
+.mypyz_cache/
 .dmypy.json
 dmypy.json
 
@@ -137,3 +137,4 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/django
+

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="jumbotron " style="margin-left: 10%;margin-right: 10%">
+<div>          
+{% for announce in announces %}
+{{announce.title}}<br>
+{{announce.content}}<br>
+{{announce.creator}}<br>
+{{announce.date}}<br><hr>
+{% endfor %}
+
+</div>
+</div> 
+{% endblock %}
