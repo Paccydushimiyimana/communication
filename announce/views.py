@@ -3,6 +3,13 @@ from .models import Announce,MyUser
 from .forms import AnnounceForm
 from django.utils import timezone
 
+
+def index(request):
+    return render(request, 'index.html')
+
+def homeP(request,name):
+    return render(request, 'homeP.html')
+
 def announce(request,name):
     announces=Announce.objects.all()
     context={'announces':announces}
