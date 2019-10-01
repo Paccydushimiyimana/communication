@@ -17,11 +17,14 @@ urlpatterns = [
     path('load_departments/',ac_views.load_departments, name='load_departments'),
     path('load_levels/',ac_views.load_levels, name='load_levels'),
 
+    path('zero/',an_views.receiver,name='zero'),
+
     url(r'^(?P<name>[\w.@+-]+)/$',an_views.homeP,name='homeP'),
     url(r'^(?P<name>[\w.@+-]+)/announce/$',an_views.announce,name='announce'),
     url(r'^(?P<name>[\w.@+-]+)/board/$',an_views.board,name='board'),
     url(r'^(?P<name>[\w.@+-]+)/board/new$',an_views.nu_announce,name='nu_announce'),
-    url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/$',an_views.view_announce,name='view_announce'),
+    url(r'^(?P<name>[\w.@+-]+)/announce/(?P<pky>\d+)/$',an_views.view_announce,name='view_announcea'),
+    url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/$',an_views.view_announce,name='view_announceb'),
 
 
 ]

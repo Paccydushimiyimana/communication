@@ -17,11 +17,15 @@
 {% if cat == 'Department council' %}
   {% include 'includes/dep_council_fields.html' %}
 {% endif %}
-
   <script>
     $('#id_school').change(function() {
-        let depart_url = $('#user').data('urldepartments');
-        let skl_select = $(this).val();
+      var formID = $(this).parents("form").attr("id");
+        if (formID == 'user') {
+          var depart_url = $('#user').data('urldepartments');
+        } else {
+          var depart_url = $('#anct').data('urldepartments');
+        }
+      let skl_select = $(this).val();
         console.log(skl_select);
         $.ajax({
         url: depart_url,
@@ -34,7 +38,12 @@
         })
     });
     $('#id_department').change(function() {
-        let level_url = $('#user').data('urllevels');
+      var formID = $(this).parents("form").attr("id");
+        if (formID == 'user') {
+          var level_url = $('#user').data('urllevels');
+        } else {
+          var level_url = $('#anct').data('urllevels');
+        }
         let depart_select = $(this).val();
         console.log(depart_select);
         $.ajax({

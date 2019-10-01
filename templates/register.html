@@ -12,7 +12,7 @@
        <div class="card-body">
         <h3 class="card-title">Sign up</h3> 
           <form id="user" method="POST" novalidate
-           data-urlcategory="{% url 'load_category' %}"
+          data-urlcategory="{% url 'load_category' %}"
           data-urldepartments="{% url 'load_departments' %}"
           data-urllevels="{% url 'load_levels' %}" >
           {% csrf_token %}
@@ -35,7 +35,9 @@
                 <option  value="{{category.name}}">{{category.name}}</option>
               {% endfor %}
               </select>
-            <div id="id_cat" class="form-group"></div>
+            <div id="id_cat" class="form-group">
+
+            </div>
            <button class="btn btn-warning " type="submit">Sign Up</button>
               
           </form>
@@ -57,11 +59,11 @@
 {% block script %}
 <script>
   $('#id_category').change(function() {
-      let cat_url = $('#user').data('urlcategory');
+      let fld_url = $('#user').data('urlcategory');
       let cat_select = $(this).val();
       console.log(cat_select);
       $.ajax({
-        url: cat_url,
+        url: fld_url,
         data: {
           category: cat_select
         },

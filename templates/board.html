@@ -6,9 +6,13 @@
 
 {% for announce in announces %}
 {{announce.pk}}
-<a href="{% url 'view_announce' name  announce.pk %}">{{announce.title}}</a><br>
+<a href="{% url 'view_announceb' name  announce.pk %}">{{announce.title}}</a><br>
 {{announce.content}}<br>
-{{announce.creator}}<br>
+{{announce.sender}}<br>
+{% for receiver in announce.receiver.all %}
+{{receiver}}|
+{% endfor %} 
+<br>
 {{announce.date}}<br><hr>
 {% endfor %}
 <br><br>

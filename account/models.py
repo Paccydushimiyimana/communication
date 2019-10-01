@@ -3,12 +3,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class MyUser(AbstractUser):
-    phone = models.IntegerField(null=True,default=True)
+    phone = models.CharField(max_length=20, null=True)
     category = models.CharField(max_length=20, null=True)
     student = models.CharField(max_length=20, null=True)
-    regNo=models.IntegerField(null=True,default=True)
+    regNo=models.CharField(max_length=20, null=True)
     lecturer = models.CharField(max_length=20, null=True)
-    staffId=models.IntegerField(null=True,default=True)
+    staffId=models.CharField(max_length=20, null=True)
     college_council = models.CharField(max_length=30, null=True)
     academic_council = models.CharField(max_length=30, null=True)
     school_council=models.CharField(max_length=30, null=True)
@@ -80,7 +80,7 @@ class Department(models.Model):
         return self.name
 
 class Level(models.Model):
-    name=models.CharField(max_length=1)  
+    name=models.CharField(max_length=5)  
     department=models.ForeignKey(Department, related_name='levels', on_delete=models.SET_NULL, null=True)      
 
     def __str__(self):

@@ -1,8 +1,40 @@
 {% extends 'base.html' %}
 {% block body %}
-  <form method="POST">
+  <form method="POST" id="anct"
+    data-urlcategory="{% url 'load_category' %}"
+    data-urldepartments="{% url 'load_departments' %}"
+    data-urllevels="{% url 'load_levels' %}" >
     {% csrf_token %}
     {{form.as_p}}
+    <label for="id_category">Category:</label>
+      <select style="height:22px;margin-left:20px" id="id_category" name="Catgy">
+        <option value="">----------</option>
+      {% for category in categories %} 
+        <option  value="{{category.name}}">{{category.name}}</option>
+      {% endfor %}
+      </select><br>
     <button type="submit" class="btn btn-success">create</button>
+  
+    <div id="id">
+   
+    </div>
   </form>
+{% endblock %}
+{% block script %}
+<script>
+  $('#id_category').change(function() {
+      let fld_url = $('#anct').data('urlcategory');
+      let cat_select = $(this).val();
+      console.log(cat_select);
+      $.ajax({
+        url: fld_url,
+        data: {
+          category: cat_select
+        },
+        success: function(response) {
+          $('#id').html(response)
+        }
+      })
+    });
+  </script>
 {% endblock %}

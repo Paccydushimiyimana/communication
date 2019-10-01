@@ -43,24 +43,46 @@ def register(request):
     categories=Category.objects.all()
     if request.method == 'POST':
         data=request.POST.copy()
-        fname=data.get('Fname')
-        lname=data.get('Lname')
-        mail=data.get('Email')
-        pne=data.get('Phone')
-        pass1=data.get('Pwd1')
-        pass2=data.get('Pwd2')
-        cat=data.get('Catgy')
-        std=data.get('Std_cat')
-        regN=data.get('Reg')
-        lect=data.get('Lect')
-        stfId=data.get('Staff')
-        col_cnl=data.get('Col_council_cat')
-        acad_cnl=data.get('Acad_council_cat')
-        skl_cnl=data.get('Skl_council_cat')
-        dep_cnl=data.get('Dep_council_cat')
-        skl=data.get('Skl')
-        dep=data.get('Depart')
-        lev=data.get('Lv')
+        fname=str(data.get('Fname'))
+        lname=str(data.get('Lname'))
+        mail=str(data.get('Email'))
+        pne=str(data.get('Phone'))
+        pass1=str(data.get('Pwd1'))
+        pass2=str(data.get('Pwd2'))
+        cat=str(data.get('Catgy'))
+        std=str(data.get('Std_cat'))
+        if std == 'None':
+            std ='.x.'
+        regN=str(data.get('Reg'))
+        if regN == 'None':
+            regN ='.x.'
+        lect=str(data.get('Lect'))
+        if lect == 'None':
+            lect ='.x.'
+        stfId=str(data.get('Staff'))
+        if stfId == 'None':
+            stfId ='.x.'
+        col_cnl=str(data.get('Col_council_cat'))
+        if col_cnl == 'None':
+            col_cnl ='.x.'
+        acad_cnl=str(data.get('Acad_council_cat'))
+        if acad_cnl == 'None':
+            acad_cnl ='.x.'
+        skl_cnl=str(data.get('Skl_council_cat'))
+        if skl_cnl == 'None':
+            skl_cnl ='.x.'
+        dep_cnl=str(data.get('Dep_council_cat'))
+        if dep_cnl == 'None':
+            dep_cnl ='.x.'
+        skl=str(data.get('Skl'))
+        if skl == 'None':
+            skl ='.x.'
+        dep=str(data.get('Depart'))
+        if dep == 'None':
+            dep ='.x.'
+        lev=str(data.get('Lv'))
+        if lev == 'None':
+            lev ='.x.'
         if pass1 == pass2:
             if MyUser.objects.filter(first_name=fname).exists():
                 messages.info(request,'Name taken')

@@ -3,10 +3,12 @@
 <div class="jumbotron " style="margin-left: 10%;margin-right: 10%">
 <div>          
 {% for announce in announces %}
-{{announce.title}}<br>
+{% if user in announce.receiver.all%}
+<a href="{% url 'view_announcea' name announce.pk %}">{{announce.title}}</a><br>
 {{announce.content}}<br>
-{{announce.creator}}<br>
+{{announce.sender}}<br>
 {{announce.date}}<br><hr>
+{% endif %}
 {% endfor %}
 
 </div>
