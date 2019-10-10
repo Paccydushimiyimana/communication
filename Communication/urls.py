@@ -4,11 +4,10 @@ from django.urls import path
 from django.conf.urls import url
 from account import views as ac_views
 from announce import views as an_views
+from django.contrib.auth import views as au_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/',an_views.index,name='index'),
-
     path('',ac_views.home,name='home'),
     path('register/',ac_views.register,name='register'),
     path('login/',ac_views.loginfx,name='login'),
@@ -18,13 +17,32 @@ urlpatterns = [
     path('load_levels/',ac_views.load_levels, name='load_levels'),
 
     path('zero/',an_views.receiver,name='zero'),
+    path('try',ac_views.trie, name='try'),
 
-    url(r'^(?P<name>[\w.@+-]+)/$',an_views.homeP,name='homeP'),
     url(r'^(?P<name>[\w.@+-]+)/announce/$',an_views.announce,name='announce'),
     url(r'^(?P<name>[\w.@+-]+)/board/$',an_views.board,name='board'),
     url(r'^(?P<name>[\w.@+-]+)/board/new$',an_views.nu_announce,name='nu_announce'),
-    url(r'^(?P<name>[\w.@+-]+)/announce/(?P<pky>\d+)/$',an_views.view_announce,name='view_announcea'),
-    url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/$',an_views.view_announce,name='view_announceb'),
+    url(r'^(?P<name>[\w.@+-]+)/announce/(?P<pky>\d+)/$',an_views.view_announce_anct,name='view_announce_anct'),
+    url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/$',an_views.view_announce_brd,name='view_announce_brd'),
 
+    url(r'^reset/$',
+        au_views.PasswordResetView.as_view(
+        template_name='password_reset.html',
+        email_template_name='password_reset_email.html',
+        subject_template_name='password_reset_subject.txt'),
+    name='password_reset'),
+    url(r'^reset/done/$',
+    au_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
+    name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    au_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
+    name='password_reset_confirm'),
+    url(r'^reset/complete/$',
+    au_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
+    name='password_reset_complete'),
 
+    url(r'^settings/password/$', au_views.PasswordChangeView.as_view(template_name='password_change.html'),
+    name='password_change'),
+    url(r'^settings/password/done/$', au_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
+    name='password_change_done'),
 ]

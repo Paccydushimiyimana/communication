@@ -1,16 +1,46 @@
 {% extends 'base.html' %}
-{% block body %}
-<div class="jumbotron " style="margin-left: 10%;margin-right: 10%">
-<div>          
+{% block title %}
+User announcements
+{% endblock %}
+{% block body %}       
 {% for announce in announces %}
-{% if user in announce.receiver.all%}
-<a href="{% url 'view_announcea' name announce.pk %}">{{announce.title}}</a><br>
-{{announce.content}}<br>
-{{announce.sender}}<br>
-{{announce.date}}<br><hr>
-{% endif %}
+  {% if user not in announce.view_by.all %}
+    <div class="card content" style="background-color: #a5a5a5;width: 60rem"><p>
+        <div class="card-body">
+            <h5 class="card-title text-muted">
+                <u>{{announce.title}}</u></h5>
+                <div class="card-text">
+                {{announce.sender}}<br>
+                {{announce.date}}<br>
+                {{announce.views}}
+            </div></p>
+            <a href="{% url 'view_announce_anct' user.username announce.pk %}" class="card-link">View</a>    
+    </div>
+  {% endif %}
 {% endfor %}
-
-</div>
-</div> 
+{% for announce in announces %}
+  {% if user in announce.view_by.all %}  
+    <div class="card"  style="width: 60rem" >
+        <div class="card-body">
+            <h5 class="card-title text-muted">
+                <u>{{announce.title}}</u></h5>
+                <div class="card-text">
+                {{announce.sender}}<br>
+                {{announce.date}}<br>
+                {{announce.views}}
+            </div>
+            <a href="{% url 'view_announce_anct' user.username announce.pk %}" class="card-link">View</a>
+        </div>
+    </div>       
+     
+  {% endif %}
+{% endfor %} 
+{% endblock %}
+{% block script %}
+<script>
+var x = document.getElementsByClassName("content").length; 
+$(document).ready(function(){
+    document.getElementById("unread").innerHTML += x + "<br/>";
+})                 
+</script>
 {% endblock %}

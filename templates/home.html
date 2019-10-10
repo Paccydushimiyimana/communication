@@ -1,11 +1,41 @@
-{% extends 'base.html'%}
-{% block body %}
-    
-<h1>Home page</h1>
-{% for message in messages %}
-{{message}}
-{% endfor %}<br>
-<a href="{% url 'login' %}">login</a><br>
-<a href="{% url 'register' %}">Register</a>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Home</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <style>
+        body  {
+       background-image: url("/static/img/blue.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+      }
+        .cover-heading{
+            padding: 150px;
+        }
+    </style>
+  </head>
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading"style="font-family: 'Inconsolata', monospace;" >Welcome to the UR-Communication System</h1>
+    <p class="lead">
+      <a class="btn " style="background-color:#0C6C8A;color: snow" href="{% url 'login' %}" role="button">Login</a>
+      <a class="btn " style="background-color:#0C6C8A;color: snow" href="{% url 'register' %}" role="button">Register</a>
+    </p>
+  </main>
+    </div>
+</body>
+</html>
+
 

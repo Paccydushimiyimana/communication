@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
+{% block title %}
+New announcement
+  {% endblock %}
 {% block body %}
+<div class="col-lg-6 col-md-8 col-sm-10">
+    <div class="card" style="background-color: whitesmoke">
+     <div class="card-body">
+      <h3 class="card-title">New Announcement</h3> 
   <form method="POST" id="anct"
     data-urlcategory="{% url 'load_category' %}"
     data-urldepartments="{% url 'load_departments' %}"
@@ -13,11 +20,8 @@
         <option  value="{{category.name}}">{{category.name}}</option>
       {% endfor %}
       </select><br>
-    <button type="submit" class="btn btn-success">create</button>
-  
-    <div id="id">
-   
-    </div>
+    <div id="id"></div>
+    <button type="submit" class="btn btn-warning">create</button>
   </form>
 {% endblock %}
 {% block script %}
@@ -36,5 +40,5 @@
         }
       })
     });
-  </script>
+</script>
 {% endblock %}

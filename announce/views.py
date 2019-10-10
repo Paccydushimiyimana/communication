@@ -3,18 +3,19 @@ from .models import Announce
 from account.models import Category,MyUser
 from .forms import AnnounceForm
 from django.utils import timezone
+from django.views.generic import UpdateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-
-def index(request):
-    return render(request, 'index.html')
-
-def homeP(request,name):
-    return render(request, 'homeP.html')
 
 def announce(request,name):
     user=get_object_or_404(MyUser,username=name)
-    announces=Announce.objects.all()
-    context={'announces':announces,'name':name}
+    announcesall=Announce.objects.all().order_by('-id')
+    announces=[]
+    for announcet in announcesall:
+        if user in announcet.receiver.all():
+            announces.append(announcet)                
+    context={'announces':announces}
     return render(request,'announce.html',context)
 
 def nu_announce(request,name):
@@ -23,7 +24,8 @@ def nu_announce(request,name):
         form =AnnounceForm(request.POST)
         user= get_object_or_404(MyUser,username=name)
         data=request.POST.copy()
-        cat=data.get('Catgy')
+        cate=data.get('Catgy')
+        cat=str(cate)
         std=str(data.get('Std_cat'))
         if std == 'None':
             std ='.x.'
@@ -119,21 +121,15 @@ def nu_announce(request,name):
                         else:
                             receivers=MyUser.objects.filter(category=cat,lecturer=lect,school=skl)
                     else:
-                        receivers=MyUser.objects.filter(category=cat,Lecturer=lect)
+                        receivers=MyUser.objects.filter(category=cat,lecturer=lect)
                 else:
-                    receivers=MyUser.objects.all()        
+                    receivers=MyUser.objects.all(category=cat)        
             else:
-                    receivers=MyUser.objects.all()
-                
-                # for receiver in receivers:
-                    # announce.receiver.add(receiver)    
-            # users=MyUser.objects.all()
-            # context={'receivers':receivers,'users':users,
-            #         'category':cat,'student':std,'lecturer':lect,'college_council':col_cnl,'academic_council':acad_cnl,
-            #         'school_council':skl_cnl,'department_council':dep_cnl,'school':skl,'department':dep,'level':lev} 
-            # return render(request,'zero.html',context)   
+                    receivers=MyUser.objects.all() 
             for receive in receivers:
                 announce.receiver.add(receive)  
+            announce.view_by.add(user) 
+            # return render(request,'ze.html',{'cat':cat})   
             return redirect('board',name=user.username)  
         
     else:
@@ -144,16 +140,44 @@ def nu_announce(request,name):
 def board(request,name):
     user= get_object_or_404(MyUser,username=name)
     announces =Announce.objects.filter(sender=user.pk)
-    receivers=MyUser.objects.filter(category='Student')
-    context={'announces':announces,'name':name,'receivers':receivers}
+    context={'announces':announces,'name':name}
     return render(request,'board.html',context)
 
-def view_announce(request,name,pky):
+def view_announce_anct(request,name,pky):
     user= get_object_or_404(MyUser,username=name)
     announce=get_object_or_404(Announce,pk=pky)
+    if user not in announce.view_by.all():
+        announce.view_by.add(user)
     context={'announce':announce,'user':user}
-    return render(request,'view_announce.html',context)
+    return render(request,'view_anct.html',context)
 
+def view_announce_brd(request,name,pky):
+    user= get_object_or_404(MyUser,username=name)
+    announce=get_object_or_404(Announce,pk=pky)
+    if user not in announce.view_by.all():
+        announce.view_by.add(user)
+    context={'announce':announce,'user':user}
+    return render(request,'view_brd.html',context)    
+ 
 def receiver(request):
     users=MyUser.objects.all()
     return render(request,'zero.html',{'users':users})    
+
+def rece(request):
+    return render(request,'ze.html')   
+
+@method_decorator(login_required, name='dispatch')
+class AnnounceUpdateView(UpdateView):
+    model = Announce
+    fields = ('content',)
+    template_name = 'edit_announce.html'
+    pk_url_kwarg = 'pky'
+    context_object_name = 'announce'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(sender=self.request.user)
+
+    def form_valid(self, form):
+        announce = form.save(commit=False)
+        return redirect('board', name=announce.sender)    

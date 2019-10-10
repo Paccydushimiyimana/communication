@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+View_brd
+  {% endblock %}
+{% block body %}
+
+<div class="card" style="background-color: #e9ecef;width: 60rem">
+<div class="card-body">
+  <div class="card-text">
+    <h5>Title:</h5>{{announce.title}}<br>
+    <h5>Content:</h5>{{announce.content}}<br>
+    <h5>Created by:</h5>{{announce.sender}}<br>
+    <h5>Date created:</h5>{{announce.date}}<br>
+    <h5>Receivers:</h5>{% for receiver in announce.receiver.all %}
+                        {{receiver}}|
+                        {% endfor %}
+{% if announce.sender == user %}
+<br><a href="" class="btn btn-warning" style="margin-left: 15%"  role="button">Edit</a><br>
+{% endif %}
+
+</div>
+{% endblock %}

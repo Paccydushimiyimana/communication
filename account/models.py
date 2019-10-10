@@ -16,7 +16,8 @@ class MyUser(AbstractUser):
     school=models.CharField(max_length=30, null=True)
     department=models.CharField(max_length=30, null=True)
     level=models.CharField(max_length=30, null=True)
-
+    unreads=models.PositiveIntegerField(default=0)
+    
 class Category(models.Model):
     name=models.CharField(max_length=30, unique=True)
 

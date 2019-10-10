@@ -4,7 +4,9 @@ from .models import Department_council,School_council,College_council,Academic_c
 from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse
 
 def home(request):
     return render(request, 'home.html')
@@ -33,7 +35,7 @@ def load_category(request):
     acad_council_cats=Academic_council.objects.all()
     schools=School.objects.all()
     levels=Level.objects.all()
-    context={ 'cat':cat,'student_cats':student_cats,'lecturer_cats':lecturer_cats,
+    context={'cat':cat,'student_cats':student_cats,'lecturer_cats':lecturer_cats,
             'col_council_cats':col_council_cats,'dep_council_cats':dep_council_cats,
             'schools':schools,'levels':levels,'skl_council_cats':skl_council_cats,
             'acad_council_cats':acad_council_cats }
@@ -93,6 +95,7 @@ def register(request):
                      academic_council=acad_cnl,school_council=skl_cnl,department_council=dep_cnl,school=skl,department=dep,
                      level=lev)
                 login(request, user) 
+
                 return redirect('homeP',name=user.username)
                    
         else:
@@ -112,7 +115,7 @@ def loginfx(request):
                 login(request, user)
                 messages.info(request,"You are logged in as ")
                 context={'form':form,'user':user}
-                return redirect('homeP',name=user.username)
+                return redirect('announce' , name=username)
             else:
                 messages.error(request,"Invalid username or password")    
         else:
@@ -123,5 +126,14 @@ def loginfx(request):
 
 def logoutfx(request):
     logout(request)
-    messages.info(request,'Logged out successfully!')
     return redirect('/')
+
+def trie(request):
+    send_mail(
+    'this is my subject',
+    'Here is my message to the receiver.',
+    settings.EMAIL_HOST_USER,
+    [settings.EMAIL_HOST_USER],
+    fail_silently=False,
+    )
+    return HttpResponse('okay')    

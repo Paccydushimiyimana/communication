@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+View_anct
+  {% endblock %}
+{% block body %}
+<div class="card" style="background-color: #e9ecef;width: 60rem">
+<div class="card-body">
+  <div class="card-text"><h3>Title:</h3>{{announce.title}}<br>
+<h3>Content:</h3>{{announce.content}}<br>
+<h3>Created by:</h3>{{announce.sender}}<br>
+<h3>Date created:</h5>{{announce.date}}<br>
+</div>
+{% endblock %}

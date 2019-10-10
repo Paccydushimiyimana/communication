@@ -1,5 +1,3 @@
-
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -15,8 +13,22 @@ SECRET_KEY = '%^_-&%o1(+zz&$7u75+npy&e5si*v)*+=y!409924(8e@w_-h$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# SEND_GRID_API_KEY='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'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'paccyUR'
+# EMAIL_HOST_PASSWORD = 'user12345'
+# EMAIL_PORT = 465
+# DEFAULT_FROM_EMAIL = 'dushimepaccy@gmail.com'
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = 'emails from my project.Thank God!'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'paccyur@gmail.com'
+EMAIL_HOST_PASSWORD = 'user1234*'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -27,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account.apps.AccountConfig',
-    'announce'
+    'account',
+    'announce',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
@@ -117,3 +130,8 @@ STATICFILES_DIRS=[
 ]
 
 AUTH_USER_MODEL = 'account.MyUser'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'home'
+
+
+
