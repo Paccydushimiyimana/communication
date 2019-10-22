@@ -12,19 +12,21 @@ User Board
       <h5 class="card-title text-muted">
         <u>{{announce.title}}</u></h5><hr>
         <div class="card-text">
-          created by:{{announce.sender}}<br>
-          receivers:
+          Receivers:
           {% if  announce.receiver.count == 0 %}
             ----
           {% endif %}
           {% for receiver in announce.receiver.all %}
             {{receiver.username}}||
           {% endfor %}<br> 
-          views:
+          Views:
           {{announce.view_by.count}}<br>
+          Date:
           {{announce.date}}
         </div>
         <a href="{% url 'view_announce_brd' user.username announce.pk %}" class="card-link">View</a>
+        <a href="{% url 'edit' user.username announce.pk %}" class="card-link">Edit</a>
+        <a href="{% url 'delete' user.username announce.pk %}" class="card-link">Delete</a>
     </div>
   </div>
 {% endfor %}

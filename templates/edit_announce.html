@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}
 Edit announcement
   {% endblock %}
 {% block body %}
-<form method="post" class="mb-4" novalidate>
-  {% csrf_token %}
-  {% include 'includes/form.html' %}
-  <button type="submit" class="btn btn-success">Save changes</button>
-  <a href="{% url 'board' user.username %}" class="btn btn-outline-secondary" role="button">Cancel</a>
-</form>
+<div class="col-lg-6 col-md-8 col-sm-10">
+  <div class="card" style="background-color: whitesmoke">
+   <div class="card-body">
+    <h3 class="card-title">Edit Announcement</h3> 
+    <form method="post" class="mb-4" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-warning">Save changes</button>
+      <a href="{% url 'board' user.username %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+    </form>
 {% endblock %}

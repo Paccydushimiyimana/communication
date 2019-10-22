@@ -1,5 +1,6 @@
 from django.db import models
 from account.models import MyUser
+from django.urls import reverse
 
 class Announce(models.Model):
     title=models.CharField(max_length=100, unique=True)
@@ -11,4 +12,5 @@ class Announce(models.Model):
 
     def __str__(self):
         return self.title
+  
 

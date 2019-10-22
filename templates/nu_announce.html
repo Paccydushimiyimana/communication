@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}
 New announcement
   {% endblock %}
@@ -12,9 +13,9 @@ New announcement
     data-urldepartments="{% url 'load_departments' %}"
     data-urllevels="{% url 'load_levels' %}" >
     {% csrf_token %}
-    {{form.as_p}}
+    {{form|crispy}}
     <label for="id_category">Category:</label>
-      <select style="height:22px;margin-left:20px" id="id_category" name="Catgy">
+      <select class="form-control" id="id_category" name="Catgy">
         <option value="">----------</option>
       {% for category in categories %} 
         <option  value="{{category.name}}">{{category.name}}</option>

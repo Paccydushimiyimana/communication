@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+from account.forms import SignUpForm
 
 def home(request):
     return render(request, 'home.html')
@@ -42,16 +44,11 @@ def load_category(request):
     return render(request, 'cat_selected.html', context)
 
 def register(request):
-    categories=Category.objects.all()
+    form=SignUpForm(request.POST)
+    categories=Category.objects.all()  
     if request.method == 'POST':
-        data=request.POST.copy()
-        fname=str(data.get('Fname'))
-        lname=str(data.get('Lname'))
-        mail=str(data.get('Email'))
-        pne=str(data.get('Phone'))
-        pass1=str(data.get('Pwd1'))
-        pass2=str(data.get('Pwd2'))
-        cat=str(data.get('Catgy'))
+        data=request.POST.copy()  
+        cat=str(data.get('Catgy'))      
         std=str(data.get('Std_cat'))
         if std == 'None':
             std ='.x.'
@@ -85,23 +82,27 @@ def register(request):
         lev=str(data.get('Lv'))
         if lev == 'None':
             lev ='.x.'
-        if pass1 == pass2:
-            if MyUser.objects.filter(first_name=fname).exists():
-                messages.info(request,'Name taken')
-                return redirect('register')
-            else:
-                user=MyUser.objects.create_user(first_name=fname,last_name=lname,email=mail,password=pass1,username=fname,
-                     phone=pne,category=cat,student=std,regNo=regN,lecturer=lect,staffId=stfId,college_council=col_cnl,
-                     academic_council=acad_cnl,school_council=skl_cnl,department_council=dep_cnl,school=skl,department=dep,
-                     level=lev)
-                login(request, user) 
-
-                return redirect('homeP',name=user.username)
-                   
+        if form.is_valid():
+            user=form.save(commit=False)
+            user.category=cat
+            user.student=std
+            user.regNo=regN
+            user.lecturer=lect
+            user.staffId=stfId
+            user.college_council=col_cnl
+            user.academic_council=acad_cnl
+            user.school_council=skl_cnl
+            user.department_council=dep_cnl
+            user.school=skl
+            user.department=dep
+            user.level=lev
+            user.save()
+            login(request, user) 
+            return redirect('announce',name=user.username)
+                        
         else:
-            messages.info(request,'password not matching')
             return redirect('register')
-    context={'categories':categories}
+    context={'categories':categories,'form':form}
     return render(request, 'register.html', context)
 
 def loginfx(request):
@@ -113,7 +114,6 @@ def loginfx(request):
             user=authenticate(username=username,password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request,"You are logged in as ")
                 context={'form':form,'user':user}
                 return redirect('announce' , name=username)
             else:
@@ -129,11 +129,25 @@ def logoutfx(request):
     return redirect('/')
 
 def trie(request):
-    send_mail(
-    'this is my subject',
-    'Here is my message to the receiver.',
-    settings.EMAIL_HOST_USER,
-    [settings.EMAIL_HOST_USER],
-    fail_silently=False,
-    )
+    user=request.user
+    context={'user':user}
+    subject='this is my subject'
+    message=render_to_string('mail.html',context)
+    from_email=settings.EMAIL_HOST_USER
+    to=[settings.EMAIL_HOST_USER]
+    fail_silently=False
+
+    send_mail(subject,message,from_email,to,fail_silently)
     return HttpResponse('okay')    
+
+# def trie(request):
+#     user=request.user
+#     context={'user':user}
+#     subject='this is my subject'
+#     message=render_to_string('mail.html',context)
+#     from_email=settings.EMAIL_HOST_USER
+#     to=[settings.EMAIL_HOST_USER]
+#     fail_silently=False
+
+#     send_mail(subject,message,from_email,to,fail_silently)
+#     return HttpResponse('okay') 

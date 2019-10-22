@@ -1,6 +1,6 @@
 <div >
         <label for="id_col_council_cat">College council category:</label>
-        <select style="height:22px;margin-left:20px" id="id_col_council_cat" name="Col_council_cat">
+        <select class="form-control" id="id_col_council_cat" name="Col_council_cat">
            <option value="">-------------------------</option>  
           {% for col_council_cat in col_council_cats %}   
            <option value="{{col_council_cat.name}}">{{col_council_cat.name}}</option>  

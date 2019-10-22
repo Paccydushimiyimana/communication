@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^(?P<name>[\w.@+-]+)/board/new$',an_views.nu_announce,name='nu_announce'),
     url(r'^(?P<name>[\w.@+-]+)/announce/(?P<pky>\d+)/$',an_views.view_announce_anct,name='view_announce_anct'),
     url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/$',an_views.view_announce_brd,name='view_announce_brd'),
+    url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/edit/$',an_views.edit_announce,name='edit'),
+    url(r'^(?P<name>[\w.@+-]+)/board/(?P<pky>\d+)/delete/$',an_views.del_announce,name='delete'),
 
     url(r'^reset/$',
         au_views.PasswordResetView.as_view(

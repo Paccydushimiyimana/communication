@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 
 
 def announce(request,name):
-    user=get_object_or_404(MyUser,username=name)
+    user=request.user
     announcesall=Announce.objects.all().order_by('-id')
     announces=[]
     for announcet in announcesall:
@@ -138,7 +138,7 @@ def nu_announce(request,name):
     return render(request,'nu_announce.html',context)
 
 def board(request,name):
-    user= get_object_or_404(MyUser,username=name)
+    user= request.user
     announces =Announce.objects.filter(sender=user.pk)
     context={'announces':announces,'name':name}
     return render(request,'board.html',context)
@@ -162,22 +162,24 @@ def view_announce_brd(request,name,pky):
 def receiver(request):
     users=MyUser.objects.all()
     return render(request,'zero.html',{'users':users})    
+ 
+def edit_announce(request,name,pky):
+    user=request.user
+    announce = get_object_or_404(Announce,pk=pky)
+    form=AnnounceForm(request.POST or None, instance=announce)
+    if form.is_valid():
+        form.save()
+        return redirect('view_announce_brd',name=user.username,pky=announce.pk)    
+    context={'form':form}    
+    return render(request,'edit_announce.html',context)    
 
-def rece(request):
-    return render(request,'ze.html')   
-
-@method_decorator(login_required, name='dispatch')
-class AnnounceUpdateView(UpdateView):
-    model = Announce
-    fields = ('content',)
-    template_name = 'edit_announce.html'
-    pk_url_kwarg = 'pky'
-    context_object_name = 'announce'
+def del_announce(request,name,pky):
+    user=request.user
+    announce = get_object_or_404(Announce,pk=pky)
+    if request.method=='POST':
+        announce.delete()
+        return redirect('board',name=user)
+    context={'announce':announce}    
+    return render(request,'del_confirm.html',context)  
     
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(sender=self.request.user)
-
-    def form_valid(self, form):
-        announce = form.save(commit=False)
-        return redirect('board', name=announce.sender)    
+          

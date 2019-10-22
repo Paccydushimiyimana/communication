@@ -4,19 +4,14 @@ View_brd
   {% endblock %}
 {% block body %}
 
-<div class="card" style="background-color: #e9ecef;width: 60rem">
-<div class="card-body">
-  <div class="card-text">
-    <h5>Title:</h5>{{announce.title}}<br>
-    <h5>Content:</h5>{{announce.content}}<br>
-    <h5>Created by:</h5>{{announce.sender}}<br>
-    <h5>Date created:</h5>{{announce.date}}<br>
-    <h5>Receivers:</h5>{% for receiver in announce.receiver.all %}
-                        {{receiver}}|
-                        {% endfor %}
-{% if announce.sender == user %}
-<br><a href="" class="btn btn-warning" style="margin-left: 15%"  role="button">Edit</a><br>
-{% endif %}
+<div class="col-lg-9 p-4 border rounded">
+  <div class="mb-1 text-muted"><h4>Title:</h4></div>{{announce.title}}</h4>
+  <div class="mb-1 text-muted"><h4>Content:</h4></div>{{announce.content}}<br> 
+  <div class="mb-1 text-muted"><h4>Date created:</h4></div>{{announce.date}}<br>   
+  <div class="mb-1 text-muted"><h4>Receivers:</h4></div>
+  {% for receiver in announce.receiver.all %}{{receiver}}|{% endfor %} 
+  <br>
+  <a href="{% url 'edit' user.username announce.pk %}" class="btn-warning">Edit</a>   
+</div>  
 
-</div>
 {% endblock %}

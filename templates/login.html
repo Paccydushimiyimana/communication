@@ -1,36 +1,44 @@
 {% extends 'basee.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 Login
   {% endblock %}
 {% block stylesheet %}
   <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
-{% endblock %}
+  <style>
+      body  {
+     background-image: url("/static/img/blue.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+    }
+      .cover-heading{
+          padding: 150px;
+      }
+  </style>
+  {% endblock %}
 
 {% block body %}
-<div class="container " >
+<div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-6 col-md-8 col-sm-10" style="margin-top: 10%">
-       <div class="card">
+     <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="row justify-content-center">
+          <img src="{% static 'img/logo.png' %}" class="rounded-circle"  style="width:35%;">
+        </div>
+      
         <div class="card-body">
          <h3 class="card-title">Login</h3> 
          <form method="POST">
             {% csrf_token %}
-            {{form.as_p}}
+            {{form|crispy}}
             <button class="btn btn-warning" type="submit">Login</button>
             </form>
             
-            <div>
-                {% for message in messages %}
-                <h3> {{message}} </h3>
-                {% endfor %}
-              </div>
-
           </div>
           <div class="card-footer text-muted text-center">
-            Don't have an account? <a href="{% url 'register' %}" target="blank"><strong>register here</strong></a>!
+            Don't have an account? <a href="{% url 'register' %}"><strong>register here</strong></a>!
         </div>
-         </div>
+         
        </div>
      </div>
    </div>

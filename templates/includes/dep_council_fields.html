@@ -1,20 +1,20 @@
 <div >
         <label for="id_dep_council_cat">Department council category:</label>
-        <select style="height:22px;margin-left:20px" id="id_dep_council_cat" name="Dep_council_cat">
+        <select class="form-control" id="id_dep_council_cat" name="Dep_council_cat">
            <option value="">-------------------------</option>  
           {% for dep_council_cat in dep_council_cats %}   
            <option value="{{dep_council_cat.name}}">{{dep_council_cat.name}}</option>  
           {% endfor %} 
         </select><br>
         <label for="id_school">School:</label>
-        <select style="height:22px;margin-left:20px" id="id_school" name="Skl">
+        <select class="form-control" id="id_school" name="Skl">
            <option value="">-----------------</option>  
           {% for school in schools%}   
            <option value="{{school.name}}">{{school.name}}</option>  
           {% endfor %}       
         </select><br>
         <label for="id_department">Department:</label>
-        <select style="height:22px;margin-left:20px" id="id_department" name="Depart">
+        <select class="form-control" id="id_department" name="Depart">
            <option value="">-----------------</option>      
         </select>
       </div>
