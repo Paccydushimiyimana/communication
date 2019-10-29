@@ -1,26 +1,33 @@
-<div >
+
+   <div class="row">
+   <div class="col">
    <label for="">Staff Id:</label>
-      <input class="form-control" type="text" name="Staff" ><br>
+      <input class="form-control" type="text" name="Staff" >
+   </div>
+   <div class="col">
    <label for="id_lecturer_cat">Lecturer_category:</label>
       <select class="form-control" id="id_lecturer_cat" name="Lect_cat">
          <option value="">-----------------</option>  
         {% for lecturer_cat in lecturer_cats %}   
          <option value="{{lecturer_cat.name}}">{{lecturer_cat.name}}</option>  
         {% endfor %} 
-      </select><br> 
+      </select></div> 
+      <div class="col">
    <label for="id_school">School:</label>
       <select class="form-control" id="id_school" name="Skl">
          <option value="">-----------------</option>  
          {% for school in schools%}   
          <option value="{{school.name}}">{{school.name}}</option>  
          {% endfor %}       
-      </select><br>
+      </select></div>
+   <div class="col">
    <label for="id_department">department:</label>
       <select class="form-control" id="id_department" name="Depart">
          <option value="">-----------------</option>      
-      </select><br>
+      </select></div>
+      <div class="col">
    <label for="id_level">Level:</label>
       <select class="form-control" id="id_level" name="Lv">
          <option value="">-----------------</option>      
-      </select>
-</div>
+      </select></div>
+   </div>

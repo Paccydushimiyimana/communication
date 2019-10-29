@@ -13,22 +13,10 @@ SECRET_KEY = '%^_-&%o1(+zz&$7u75+npy&e5si*v)*+=y!409924(8e@w_-h$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# SEND_GRID_API_KEY='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'
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_HOST_USER = 'paccyUR'
-# EMAIL_HOST_PASSWORD = 'user12345'
-# EMAIL_PORT = 465
-# DEFAULT_FROM_EMAIL = 'dushimepaccy@gmail.com'
-# ACCOUNT_EMAIL_SUBJECT_PREFIX = 'emails from my project.Thank God!'
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'paccyur@gmail.com'
-EMAIL_HOST_PASSWORD = 'user1234*'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.ngrok.io',
+    '127.0.0.1',
+    ]
 
 # Application definition
 
@@ -39,13 +27,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'django_twilio',
     'account',
     'announce',
     'widget_tweaks',
     'crispy_forms',
+    # 'martor',
+    
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
+# MARKDOWN_EDITOR_SKIN = 'simple'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,8 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Communication.wsgi.application'
 
-
-# Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 # DATABASES = {
 #     'default': {
@@ -87,9 +77,10 @@ WSGI_APPLICATION = 'Communication.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ur-cs',
         'USER': 'postgres',
         'PASSWORD': 'user1234',
@@ -142,6 +133,28 @@ STATICFILES_DIRS=[
 AUTH_USER_MODEL = 'account.MyUser'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+EMAIL_HOST = 'smtp.hushmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'happybrowm@hushmail.com'
+EMAIL_HOST_PASSWORD = 'happyazmarosemary12'
+# EMAIL_HOST_USER = 'urcommunication@hushmail.com'
+# EMAIL_HOST_PASSWORD = 'ur communication hush mail'
+# EMAIL_HOST_USER = 'urcommunication1@hushmail.com'
+# EMAIL_HOST_PASSWORD = 'ur communication1 hush mail'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+MAILCHIMP_API_KEY='495d87adb390a15bc46c4e1d736dae29-us20'
+MAILCHIMP_DATA_CENTER='us20'
+MAILCHIMP_EMAIL_LIST_ID='f7fdfc1e59'
+
+TWILIO_ACCOUNT_SID = 'AC4dca8577a8b0feaee5a963e887d58c2d'
+TWILIO_AUTH_TOKEN = '183efd0aa2a81b5ca3aad6e46df32d5d'
+TWILIO_PHONE_NUMBER= '+12058102214'
 
 

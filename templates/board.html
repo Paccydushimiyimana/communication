@@ -5,12 +5,12 @@ User Board
 {% block body %}
 <div>  
   <h3><u>My Board</u></h3><br>
- <a href="{% url 'nu_announce' user.username  %}" class="btn btn-warning" role="button">New announcement</a><br><br>  
+ <a href="{% url 'nu_announce' user.username  %}" class="btn btn-secondary" role="button">New announcement</a><br><br>  
 {% for announce in announces %}  
-  <div class="card content" style="background-color: #e9ecef;width: 60rem">
+  <div class="card content" style="background-color: rgba(126, 151, 158, 0.5)"; width: 60rem">
     <div class="card-body">
-      <h5 class="card-title text-muted">
-        <u>{{announce.title}}</u></h5><hr>
+      <h5 class="card-title">
+        {{announce.title}}</h5><hr>
         <div class="card-text">
           Receivers:
           {% if  announce.receiver.count == 0 %}

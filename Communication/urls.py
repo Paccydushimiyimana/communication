@@ -1,10 +1,12 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.conf.urls import url
 from account import views as ac_views
 from announce import views as an_views
 from django.contrib.auth import views as au_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,7 +19,9 @@ urlpatterns = [
     path('load_levels/',ac_views.load_levels, name='load_levels'),
 
     path('zero/',an_views.receiver,name='zero'),
-    path('try',ac_views.trie, name='try'),
+    path('try/',ac_views.trie, name='try'),
+    path('trys/',ac_views.tries, name='trys'),
+    # path('martor/', include('martor.urls')),
 
     url(r'^(?P<name>[\w.@+-]+)/announce/$',an_views.announce,name='announce'),
     url(r'^(?P<name>[\w.@+-]+)/board/$',an_views.board,name='board'),
@@ -48,3 +52,5 @@ urlpatterns = [
     url(r'^settings/password/done/$', au_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
     name='password_change_done'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

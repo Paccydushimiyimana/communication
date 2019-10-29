@@ -5,7 +5,7 @@ User announcements
 {% block body %}     
 
 {% for announce in announces %}
-  {% if user not in announce.view_by.all %}
+  <!-- {% if user not in announce.view_by.all %}
     <div class="card content" style="background-color: #a5a5a5;width: 60rem"><p>
         <div class="card-body">
             <h5 class="card-title">
@@ -18,9 +18,9 @@ User announcements
                 
             </div></p>
     </div>
-  {% endif %}
+  {% endif %} -->
 {% endfor %}
-<table class="table table-striped">
+<table class="table">
     <thead>
       <tr>
         <th scope="col"></th>
@@ -29,20 +29,31 @@ User announcements
         <th scope="col">Date</th>
       </tr>
     </thead>
-    <tbody>
-        {% for announce in announces %}
-        {% if user in announce.view_by.all %} 
-      <tr>
-        <th scope="row">{{announce.pk}}</th>
-        <td>
-          <a href="{% url 'view_announce_anct' user.username announce.pk %}">
-            <h5>{{announce.title}}</h5>
-          </a>
-       </td>
-        <td>{{announce.sender}}</td>
-        <td>{{announce.date}}</td>
-      </tr>
-      {% endif %}
+    <tbody> 
+      {% for announce in announces %}
+      {% if user not in announce.view_by.all %}
+      <tr style="background-color: rgba(201, 201, 201, 0.877);">
+          <td scope="row">{{announce.pk}}</td>
+          <td>
+            <a href="{% url 'view_announce_anct' user.username announce.pk %}">
+              <h5>{{announce.title}}</h5>
+            </a>
+          </td>
+          <td><b>{{announce.sender}}</b>/{{announce.sender.category}}</td>
+          <td>{{announce.date}}</td>
+        </tr>
+        {% else %}
+        <tr >
+          <td scope="row">{{announce.pk}}</td>
+          <td>
+            <a href="{% url 'view_announce_anct' user.username announce.pk %}">
+              <h5>{{announce.title}}</h5>
+            </a>
+          </td>
+          <td><b>{{announce.sender}}</b>/{{announce.sender.category}}</td>
+          <td>{{announce.date}}</td>
+        </tr>
+        {% endif %}
       {% endfor %} 
     </tbody>
   </table>

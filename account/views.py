@@ -1,14 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from .models import College,School,Department,Level,Category,Student_category,Lecturer_category
 from .models import Department_council,School_council,College_council,Academic_council,MyUser
+from announce.models import Announce
 from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from account.forms import SignUpForm
+import json
+from django.views.decorators.csrf import csrf_exempt
+from twilio.rest import Client
+
 
 def home(request):
     return render(request, 'home.html')
@@ -128,26 +134,56 @@ def logoutfx(request):
     logout(request)
     return redirect('/')
 
-def trie(request):
-    user=request.user
-    context={'user':user}
-    subject='this is my subject'
-    message=render_to_string('mail.html',context)
-    from_email=settings.EMAIL_HOST_USER
-    to=[settings.EMAIL_HOST_USER]
-    fail_silently=False
+MAILCHIMP_API_KEY = settings.MAILCHIMP_API_KEY
+MAILCHIMP_DATA_CENTER = settings.MAILCHIMP_DATA_CENTER
+MAILCHIMP_EMAIL_LIST_ID = settings.MAILCHIMP_EMAIL_LIST_ID
 
-    send_mail(subject,message,from_email,to,fail_silently)
-    return HttpResponse('okay')    
+api_url = f'https://{MAILCHIMP_DATA_CENTER}.api.mailchimp.com/3.0'
+members_endpoint = f'{api_url}/lists/{MAILCHIMP_EMAIL_LIST_ID}/members'
+
+def subscribe(email):
+    data = {
+        "email_address":email,
+        "status":"subscribed"
+    }
+    r = requests.post(
+        members_endpoint,
+        auth=("",MAILCHIMP_API_KEY),
+        data=json.dumps(data)
+    )
+    return r.status_code,r.json()
 
 # def trie(request):
-#     user=request.user
-#     context={'user':user}
-#     subject='this is my subject'
-#     message=render_to_string('mail.html',context)
-#     from_email=settings.EMAIL_HOST_USER
-#     to=[settings.EMAIL_HOST_USER]
-#     fail_silently=False
+    subscribe('dushimepaccy@gmail.com')
+    return HttpResponse('okay') 
 
-#     send_mail(subject,message,from_email,to,fail_silently)
-#     return HttpResponse('okay') 
+def trie(request):
+    user=request.user
+    ann=Announce.objects.last()
+    context={'user':user,'ann':ann}
+    subject='this is my subject'
+    message=render_to_string('mail.html',context)
+    plain_message = strip_tags(message)
+    from_email=settings.EMAIL_HOST_USER
+    to=['shaffyur@yahoo.com']
+    fail_silently=False
+    send_mail(subject,plain_message,from_email,to,fail_silently)
+    return HttpResponse('okay') 
+
+def tries(request):
+    user=request.user
+    ann=Announce.objects.last()
+    context={'user':user,'ann':ann}
+    to = '+250 782 644 566'
+    message=render_to_string('mail.html',context)
+    body = strip_tags(message)
+    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+    response = client.messages.create(
+    body=body, 
+    to=to, 
+    from_=settings.TWILIO_PHONE_NUMBER) 
+    return HttpResponse('Okay')  
+
+
+        
+            

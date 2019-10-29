@@ -4,26 +4,31 @@
 New announcement
   {% endblock %}
 {% block body %}
-<div class="col-lg-6 col-md-8 col-sm-10">
-    <div class="card" style="background-color: whitesmoke">
+<div class="col-lg-8  ">
+    <div class="card" style="background-color: rgba(12, 108, 138, 0.5)">
      <div class="card-body">
       <h3 class="card-title">New Announcement</h3> 
-  <form method="POST" id="anct"
+  <form method="POST" id="anct" enctype="multipart/form-data"
     data-urlcategory="{% url 'load_category' %}"
     data-urldepartments="{% url 'load_departments' %}"
     data-urllevels="{% url 'load_levels' %}" >
     {% csrf_token %}
     {{form|crispy}}
     <label for="id_category">Category:</label>
-      <select class="form-control" id="id_category" name="Catgy">
+      <select class="form-control col-lg-5" id="id_category" name="Catgy">
         <option value="">----------</option>
       {% for category in categories %} 
         <option  value="{{category.name}}">{{category.name}}</option>
       {% endfor %}
       </select><br>
-    <div id="id"></div>
-    <button type="submit" class="btn btn-warning">create</button>
+    <div id="id"></div><br>
+    <div class='row justify-content-center'>
+      <button type="submit" class="btn btn-secondary">create</button>
+    </div>  
   </form>
+  </div>
+  </div>
+</div>
 {% endblock %}
 {% block script %}
 <script>

@@ -1,11 +1,15 @@
       <div >
+          <div class="row"> 
+              <div class="col"> 
         <label for="id_skl_council_cat">School council category:</label>
         <select class="form-control" id="id_skl_council_cat" name="Skl_council_cat">
            <option value="">-------------------------</option>  
           {% for skl_council_cat in skl_council_cats %}   
            <option value="{{skl_council_cat.name}}">{{skl_council_cat.name}}</option>  
           {% endfor %} 
-        </select><br>
+        </select>
+        </div><br>
+        <div class="col"> 
         <label for="id_school">School:</label>
         <select class="form-control" id="id_school" name="Skl">
            <option value="">-----------------</option>  
@@ -13,4 +17,5 @@
            <option value="{{school.name}}">{{school.name}}</option>  
           {% endfor %}       
         </select>
+        </div>
       </div>

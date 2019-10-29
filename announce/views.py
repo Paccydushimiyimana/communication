@@ -6,7 +6,9 @@ from django.utils import timezone
 from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.core.mail import send_mail
+from django.conf import settings
+from twilio.rest import Client
 
 def announce(request,name):
     user=request.user
@@ -20,8 +22,10 @@ def announce(request,name):
 
 def nu_announce(request,name):
     categories= Category.objects.all()
+    to_email=[]
+    to_phone=[]
     if request.method == 'POST':
-        form =AnnounceForm(request.POST)
+        form =AnnounceForm(request.POST, request.FILES)
         user= get_object_or_404(MyUser,username=name)
         data=request.POST.copy()
         cate=data.get('Catgy')
@@ -127,9 +131,23 @@ def nu_announce(request,name):
             else:
                     receivers=MyUser.objects.all() 
             for receive in receivers:
-                announce.receiver.add(receive)  
+                announce.receiver.add(receive)
+                to_email.append(receive.email)
+                to_phone.append(receive.phone)
             announce.view_by.add(user) 
-            # return render(request,'ze.html',{'cat':cat})   
+            # subject=form.cleaned_data.get('title')
+            # message=form.cleaned_data.get('content')
+            # from_email=settings.EMAIL_HOST_USER
+            # to=to_email
+            # fail_silently=False
+            # send_mail(subject,message,from_email,to,fail_silently)
+
+            # to = '+250 782 644 566'
+            # client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+            # response = client.messages.create(
+            # body='Hello from ur communication project', 
+            # to=to, 
+            # from_=settings.TWILIO_PHONE_NUMBER)    
             return redirect('board',name=user.username)  
         
     else:
