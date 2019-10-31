@@ -10,6 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%^_-&%o1(+zz&$7u75+npy&e5si*v)*+=y!409924(8e@w_-h$'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -33,10 +34,10 @@ INSTALLED_APPS = [
     'announce',
     'widget_tweaks',
     'crispy_forms',
-    'martor',
-    'mdeditor',
-    'ckeditor',
-    'ckeditor_uploader',
+    # 'martor',
+    # 'mdeditor',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # MARKDOWN_EDITOR_SKIN = 'simple'
@@ -131,7 +132,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
-STATIC_ROOT= os.path.join(BASE_DIR,'editor')
+STATIC_ROOT= os.path.join(BASE_DIR,'staticr')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -139,7 +142,6 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 AUTH_USER_MODEL = 'account.MyUser'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
-
 
 EMAIL_HOST = 'smtp.hushmail.com'
 EMAIL_PORT = 587
