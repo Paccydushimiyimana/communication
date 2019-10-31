@@ -1,1 +1,1 @@
-web: gunicorn communication.wsgi --log-file -
+web: gunicorn Communication.wsgi --log-file -

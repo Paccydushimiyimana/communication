@@ -23,9 +23,9 @@ urlpatterns = [
     path('sms/',ac_views.sms, name='sms'),
     path('sub/',ac_views.trie, name='sub'),
 
-    path('martor/', include('martor.urls')),
-    url(r'mdeditor/', include('mdeditor.urls')),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # path('martor/', include('martor.urls')),
+    # url(r'mdeditor/', include('mdeditor.urls')),
+    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     
     url(r'^(?P<name>[\w.@+-]+)/announce/$',an_views.announce,name='announce'),
     url(r'^(?P<name>[\w.@+-]+)/board/$',an_views.board,name='board'),
