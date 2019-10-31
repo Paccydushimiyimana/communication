@@ -8,7 +8,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
@@ -54,7 +54,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # MARKDOWN_EDITOR_SKIN = 'simple'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
