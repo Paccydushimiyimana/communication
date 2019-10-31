@@ -7,7 +7,7 @@ User Board
   <h3><u>My Board</u></h3><br>
  <a href="{% url 'nu_announce' user.username  %}" class="btn btn-secondary" role="button">New announcement</a><br><br>  
 {% for announce in announces %}  
-  <div class="card content" style="background-color: rgba(126, 151, 158, 0.5)"; width: 60rem">
+  <div class="card content" style="background-color: rgba(126, 151, 158, 0.1)"; width: 60rem">
     <div class="card-body">
       <h5 class="card-title">
         {{announce.title}}</h5><hr>

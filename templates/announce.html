@@ -3,7 +3,7 @@
 User announcements
 {% endblock %}
 {% block body %}     
-
+<div>
 {% for announce in announces %}
   <!-- {% if user not in announce.view_by.all %}
     <div class="card content" style="background-color: #a5a5a5;width: 60rem"><p>
@@ -22,9 +22,9 @@ User announcements
 {% endfor %}
 <table class="table">
     <thead>
-      <tr>
+      <tr >
         <th scope="col"></th>
-        <th scope="col">Title</th>
+        <th scope="col col-6">Title</th>
         <th scope="col">Sender</th>
         <th scope="col">Date</th>
       </tr>
@@ -32,7 +32,7 @@ User announcements
     <tbody> 
       {% for announce in announces %}
       {% if user not in announce.view_by.all %}
-      <tr style="background-color: rgba(201, 201, 201, 0.877);">
+      <tr style="background-color: rgba(201, 201, 201, 0.3);">
           <td scope="row">{{announce.pk}}</td>
           <td>
             <a href="{% url 'view_announce_anct' user.username announce.pk %}">
@@ -58,7 +58,7 @@ User announcements
     </tbody>
   </table>
 
-
+</div>
 {% endblock %}
 {% block script %}
 <script>

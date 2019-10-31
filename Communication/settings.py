@@ -33,8 +33,10 @@ INSTALLED_APPS = [
     'announce',
     'widget_tweaks',
     'crispy_forms',
-    # 'martor',
-    
+    'martor',
+    'mdeditor',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # MARKDOWN_EDITOR_SKIN = 'simple'
@@ -129,12 +131,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+STATIC_ROOT= os.path.join(BASE_DIR,'editor')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 AUTH_USER_MODEL = 'account.MyUser'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 EMAIL_HOST = 'smtp.hushmail.com'
 EMAIL_PORT = 587
@@ -147,14 +152,49 @@ EMAIL_HOST_PASSWORD = 'happyazmarosemary12'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MAILCHIMP_API_KEY='495d87adb390a15bc46c4e1d736dae29-us20'
 MAILCHIMP_DATA_CENTER='us20'
 MAILCHIMP_EMAIL_LIST_ID='f7fdfc1e59'
 
-TWILIO_ACCOUNT_SID = 'AC4dca8577a8b0feaee5a963e887d58c2d'
-TWILIO_AUTH_TOKEN = '183efd0aa2a81b5ca3aad6e46df32d5d'
-TWILIO_PHONE_NUMBER= '+12058102214'
+TWILIO_ACCOUNT_SID = 'ACdcdcf8ee5127c3c67c56ea861c6004c6'
+TWILIO_AUTH_TOKEN = '0ae05dd8d0b696968b31e65d25451641'
+TWILIO_PHONE_NUMBER= '+12513877681'
 
-
+CKEDITOR_CONFIGS = {
+    'default': {
+        # 'toolbar': 'full',
+        'height': 200,
+        'width': 500,
+    },
+}
+MDEDITOR_CONFIGS = {
+    'default':{
+        'width': '90% ',  # Custom edit box width
+        'heigth': 500,  # Custom edit box height
+        'toolbar': ["undo", "redo", "|",
+                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                    "h1", "h2", "h3", "h5", "h6", "|",
+                    "list-ul", "list-ol", "hr", "|",
+                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
+                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
+                    "help", "info",
+                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
+        'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
+        'image_folder': 'editor',  # image save the folder name
+        'theme': 'default',  # edit box theme, dark / default
+        'preview_theme': 'default',  # Preview area theme, dark / default
+        'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
+        'toolbar_autofixed': True,  # Whether the toolbar capitals
+        'search_replace': True,  # Whether to open the search for replacement
+        'emoji': True,  # whether to open the expression function
+        'tex': True,  # whether to open the tex chart function
+        'flow_chart': True,  # whether to open the flow chart function
+        'sequence': True, # Whether to open the sequence diagram function
+        'watch': True,  # Live preview
+        'lineWrapping': False,  # lineWrapping
+        'lineNumbers': False  # lineNumbers
+    }
+    
+}

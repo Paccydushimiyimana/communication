@@ -36,7 +36,7 @@ def nu_announce(request,name):
         regN=str(data.get('Reg'))
         if regN == 'None':
             regN ='.x.'
-        lect=str(data.get('Lect'))
+        lect=str(data.get('Lect_cat'))
         if lect == 'None':
             lect ='.x.'
         stfId=str(data.get('Staff'))

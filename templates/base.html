@@ -1,11 +1,10 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="HandheldFriendly" content="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
       {% block title %}
       {% endblock %}
@@ -18,69 +17,64 @@
   {% endblock %}  
 </head>
 <body>
-  <div class="row justify-content-center">
-    <img src="{% static 'img/logo.png' %}" class="rounded-circle"  style="width:10%;">
-  </div>
   <div class="container-fluid">
+    <div class="row justify-content-center">
+      <img src="{% static 'img/logo.png' %}" class="rounded-circle"  style="width:15%;">
+    </div><hr>
     <div class="row">
-      <nav class="col-lg-2 col-md-3 position-fixed " 
-      style="height: 40rem">
+      <div class="col col-lg-2 col-md-3 col-sm-4 col-4">
         <img src="{% static 'img/stdn.jpeg' %}"
-         class="rounded-circle"
-         style="width: 50%">
-         <p style="color: #0C6C8A;font-family:'El Messiri',sans-serif ;">{{user.username}}/{{user.category}}</p><hr>
-        <ul class="nav flex-column">
-          <li> 
-            <a class="btn btn-primary " 
-            style="color: white;background-color:#0C6C8A;margin-left: 0.3em;width: 170px;"
-            href="{% url 'announce' user.username %}">
-            <div class="row" style="margin-left: 0.3em;">
-              Announcements  
-              <!-- <div id="unread" class="d-flex justify-content-center" 
-              style="background-color: red;border-radius: 100%;margin-left: 0.3em;
-              width: 1.5rem;align-content: center"></div> -->
-            </div>      
-           </a>
-          </li>{% if user.student != Others %}
-          <li>
-            <a class="btn btn-primary " 
-            style="color: white;background-color:#0C6C8A;margin-left: 0.3em;width: 170px;"
-            href="{% url 'board' user.username %}">
-             Board
-            </a>
-          </li>
-          {% endif %}
-          <li>
-            <a class="btn btn-primary " 
-            style="color: white;background-color:#0C6C8A;margin-left: 0.3em;width: 170px;"
-            href="https://ur.ac.rw" target="_blank">
-             UR website
-            </a>
-          </li>
-          <li>
-            <a class="btn btn-primary dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false""
-            style="color: white;background-color:#0C6C8A;margin-left: 0.3em;width: 170px;">
-              My Account
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-                <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
-              </div>
-          </li>
-        </ul>
-      </nav>
-      <main role="main" class="col-lg-10 col-md-9 ml-sm-auto px-4">  
+          class="rounded-circle"
+          style="width: 50%">
+        <p style="color: #0C6C8A;font-family:'El Messiri',sans-serif ;">{{user.username}}/{{user.category}}</p>
+        <nav class="navbar-expand-md  navbar-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"  style="background-color:#0C6C8A">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="nav ">
+              <li> 
+                <a class="btn text-light " 
+                style="background-color:#0C6C8A;width: 150px;"
+                href="{% url 'announce' user.username %}">
+                <div class="row" style="margin-left: 0;">
+                  Announcements  
+                </div>      
+              </a>
+              </li>
+              <li>
+                <a class="btn text-light " 
+                style="background-color:#0C6C8A;width: 150px;"
+                href="{% url 'board' user.username %}">Board</a>
+              </li>
+              <li>
+                <a class="btn text-light" 
+                style="background-color:#0C6C8A;width: 150px;"
+                href="https://ur.ac.rw" target="_blank">UR website</a>
+              </li>
+              <li>
+                <a class="btn text-light dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false""
+                style="background-color:#0C6C8A;width: 150px;">My Account</a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                  <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="col col-lg-10 col-md-9 col-sm-12 col-12">  
         {% block body %}
         {% endblock %}
-      </main>
+      </div>
     </div>
   </div>
-
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-{% block script %}  
-{% endblock %}
+  {% block script %}  
+  {% endblock %}
 </body>
 </html>

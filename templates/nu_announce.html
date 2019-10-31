@@ -13,6 +13,7 @@ New announcement
     data-urldepartments="{% url 'load_departments' %}"
     data-urllevels="{% url 'load_levels' %}" >
     {% csrf_token %}
+    <!-- {{form.media}} -->
     {{form|crispy}}
     <label for="id_category">Category:</label>
       <select class="form-control col-lg-5" id="id_category" name="Catgy">

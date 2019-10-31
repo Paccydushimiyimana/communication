@@ -4,18 +4,17 @@ from .models import MyUser,Category
 from django.utils.translation import ugettext_lazy as _
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False)
-    last_name = forms.CharField(max_length=30, required=False)
-    username = forms.CharField(max_length=30, required=False)
-    email = forms.EmailField(max_length=254, required=False)
-    phone = forms.CharField(max_length=10, required=False)
+    first_name = forms.CharField(max_length=30,)
+    last_name = forms.CharField(max_length=30,)
+    username = forms.CharField(max_length=30,)
+    email = forms.EmailField(max_length=254,)
+    phone = forms.CharField(max_length=13,help_text=_("With country code"))
             
     class Meta:
         model = MyUser
         fields = ('first_name', 'last_name','username','email','phone')
 
 class MyUserChangeForm(UserChangeForm):
-
     class Meta:
         model = MyUser
         fields =('username','email')

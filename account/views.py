@@ -61,7 +61,7 @@ def register(request):
         regN=str(data.get('Reg'))
         if regN == 'None':
             regN ='.x.'
-        lect=str(data.get('Lect'))
+        lect=str(data.get('Lect_cat'))
         if lect == 'None':
             lect ='.x.'
         stfId=str(data.get('Staff'))
@@ -153,11 +153,11 @@ def subscribe(email):
     )
     return r.status_code,r.json()
 
-# def trie(request):
+def trie(request):
     subscribe('dushimepaccy@gmail.com')
     return HttpResponse('okay') 
 
-def trie(request):
+def mail(request):
     user=request.user
     ann=Announce.objects.last()
     context={'user':user,'ann':ann}
@@ -165,25 +165,20 @@ def trie(request):
     message=render_to_string('mail.html',context)
     plain_message = strip_tags(message)
     from_email=settings.EMAIL_HOST_USER
-    to=['shaffyur@yahoo.com']
+    to=['happiness.rosemary@yahoo.fr']
     fail_silently=False
     send_mail(subject,plain_message,from_email,to,fail_silently)
     return HttpResponse('okay') 
 
-def tries(request):
+def sms(request):
     user=request.user
     ann=Announce.objects.last()
     context={'user':user,'ann':ann}
-    to = '+250 782 644 566'
+    tolst =['+250727462915','+250782644566','+250784017638','+250785011856','+250728915557']
     message=render_to_string('mail.html',context)
     body = strip_tags(message)
     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-    response = client.messages.create(
-    body=body, 
-    to=to, 
-    from_=settings.TWILIO_PHONE_NUMBER) 
+    for to in tolst:
+        response = client.messages.create(body=body,to=to,from_=settings.TWILIO_PHONE_NUMBER) 
     return HttpResponse('Okay')  
 
-
-        
-            

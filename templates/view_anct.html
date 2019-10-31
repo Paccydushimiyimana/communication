@@ -3,23 +3,25 @@
 View_anct
   {% endblock %}
 {% block body %}
-  <div class="col-lg-9 p-4 border rounded">
+<div class="row">
+  <div class="col p-4 border rounded">
     <div class="row ">
-      <div class="col"></div>
-      <div class="col"><h4>{{announce.title}}</h4></div>
+      <div class="col"><div class="row justify-content-center">          
+        <div class="mb-1 text-muted">From:</div>
+        <div style="margin-left: 1%;">{{announce.sender}}/</div>
+        <div style="margin-left: 1%;">{{user.category}}</div>
+      </div></div>
       <div class="col text-muted">{{announce.date}}</div>
-    </div><br><br>
-    <div class="row ">
-      <div class="col-lg-4">{{announce.content}}</div>
-    </div><br> 
-    {% if announce.file %}
-    <a href="{% url 'home' %}media/{{announce.file}}" target="_blank">Attachment</a>
-    {% endif %} 
-    <div class="row justify-content-center">          
-      <div class="mb-1 text-muted">Created by:</div>
-      <div style="margin-left: 1%;">{{announce.sender}}</div>
-      <div style="margin-left: 1%;">{{user.category}}</div>
     </div>
+    <div class="row ">
+      <div class="col"><h4>{{announce.title}}</h4>
+    {{announce.content}}
+    </div></div><br> 
+    {% if announce.file %}
+    <a href="{% url 'home' %}media/{{announce.file}}" target="_blank">Attachment</a><br><br>
+    {% endif %} 
+    
     <a href="{% url 'announce' user.username %}" class="btn btn-outline-secondary" role="button">Back</a>
-  </div>  
+  </div> 
+</div>   
 {% endblock %}
