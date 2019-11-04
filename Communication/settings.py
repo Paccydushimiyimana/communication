@@ -1,19 +1,15 @@
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -28,7 +24,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '.ngrok.io',
     '127.0.0.1',
-    'ur-cs.herokuapp.com/'
     ]
 
 # Application definition
@@ -40,21 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'django_twilio',
     'account',
     'announce',
     'widget_tweaks',
     'crispy_forms',
-    # 'martor',
-    # 'mdeditor',
-    # 'ckeditor',
-    # 'ckeditor_uploader',
+    'django_twilio',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-# MARKDOWN_EDITOR_SKIN = 'simple'
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -105,9 +93,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-import dj_database_url 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+ 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -168,40 +154,3 @@ MAILCHIMP_EMAIL_LIST_ID='f7fdfc1e59'
 TWILIO_ACCOUNT_SID = 'ACdcdcf8ee5127c3c67c56ea861c6004c6'
 TWILIO_AUTH_TOKEN = '0ae05dd8d0b696968b31e65d25451641'
 TWILIO_PHONE_NUMBER= '+12513877681'
-
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         # 'toolbar': 'full',
-#         'height': 200,
-#         'width': 500,
-#     },
-# }
-# MDEDITOR_CONFIGS = {
-#     'default':{
-#         'width': '90% ',  # Custom edit box width
-#         'heigth': 500,  # Custom edit box height
-#         'toolbar': ["undo", "redo", "|",
-#                     "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-#                     "h1", "h2", "h3", "h5", "h6", "|",
-#                     "list-ul", "list-ol", "hr", "|",
-#                     "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
-#                     "emoji", "html-entities", "pagebreak", "goto-line", "|",
-#                     "help", "info",
-#                     "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
-#         'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
-#         'image_folder': 'editor',  # image save the folder name
-#         'theme': 'default',  # edit box theme, dark / default
-#         'preview_theme': 'default',  # Preview area theme, dark / default
-#         'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
-#         'toolbar_autofixed': True,  # Whether the toolbar capitals
-#         'search_replace': True,  # Whether to open the search for replacement
-#         'emoji': True,  # whether to open the expression function
-#         'tex': True,  # whether to open the tex chart function
-#         'flow_chart': True,  # whether to open the flow chart function
-#         'sequence': True, # Whether to open the sequence diagram function
-#         'watch': True,  # Live preview
-#         'lineWrapping': False,  # lineWrapping
-#         'lineNumbers': False  # lineNumbers
-#     }
-    
-# }
