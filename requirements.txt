@@ -46,6 +46,6 @@ soupsieve==1.9.4
 South==1.0.2
 sqlparse==0.3.0
 twilio==6.7.0
-urllib3==1.25.6
+urllib3==1.26.5
 whitenoise==4.1.4
 zerosms==0.0.1
